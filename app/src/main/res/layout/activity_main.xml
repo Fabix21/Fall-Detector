@@ -16,9 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="65dp"
-            android:text="Wykrywacz Upadku v0.1 "
+            android:text="Wykrywacz Upadku v0.2"
             android:textColor="@color/colorAccent"
             android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Accelrometr" />
 
         <TextView
             android:id="@+id/textView4"
@@ -47,6 +55,26 @@
             android:text="Os X"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Położenie" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Szerokość geograficzna" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Długość geograficzna" />
     </LinearLayout>
 
 </RelativeLayout>
