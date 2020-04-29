@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Turbo wykrywacz upadku v0.21</string>
+    <string name="app_name">Fall Detector v0.22</string>
     <string name="accelrometr">Accelrometr</string>
     <string name="os_z">Os Z</string>
     <string name="os_y">Os Y</string>
@@ -9,6 +9,9 @@
     <string name="po_o_enie">Położenie</string>
     <string name="szeroko_geograficzna">Szerokość geograficzna</string>
     <string name="d_ugo_geograficzna">Długość geograficzna</string>
+    <string name="title_activity_welcome_screen">welcomeScreen</string>
+    <string name="welcome_message">Witaj w aplikacji FallDetector, aplikacja ma na celu wykrycie upadku oraz udostepnienie Twojej lokalizacji w chwili wykrycia upadku wysyłajać SMS na wybrany przez Ciebie numer.</string>
+    <string name="appName">Wykrywacz Upadku v0.22</string>
 
 
 </resources>
