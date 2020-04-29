@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Turbo wykrywacz upadku v0.2</string>
+    <string name="app_name">Turbo wykrywacz upadku v0.21</string>
+    <string name="accelrometr">Accelrometr</string>
+    <string name="os_z">Os Z</string>
+    <string name="os_y">Os Y</string>
+    <string name="os_x">Os X</string>
+    <string name="po_o_enie">Położenie</string>
+    <string name="szeroko_geograficzna">Szerokość geograficzna</string>
+    <string name="d_ugo_geograficzna">Długość geograficzna</string>
 
 
 </resources>

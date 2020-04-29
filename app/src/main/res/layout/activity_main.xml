@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="65dp"
-            android:text="Wykrywacz Upadku v0.2"
+            android:text="Wykrywacz Upadku v0.21"
             android:textColor="@color/colorAccent"
             android:textSize="25sp" />
 
@@ -26,14 +26,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Accelrometr" />
+            android:text="@string/accelrometr" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Os Z"
+            android:text="@string/os_z"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Os Y"
+            android:text="@string/os_y"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:text="Os X"
+            android:text="@string/os_x"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -62,19 +62,19 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Położenie" />
+            android:text="@string/po_o_enie" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Szerokość geograficzna" />
+            android:text="@string/szeroko_geograficzna" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Długość geograficzna" />
+            android:text="@string/d_ugo_geograficzna" />
     </LinearLayout>
 
 </RelativeLayout>

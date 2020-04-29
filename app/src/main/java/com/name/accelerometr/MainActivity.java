@@ -14,6 +14,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -111,8 +112,14 @@ public class MainActivity extends Activity implements SensorEventListener {
     private void checkFall(float yVal) {
         if (yVal > 8) {
             fallPopUp();
+            playSound();
             Log.i("Wykryto upadek", "os Y");
         }
+    }
+
+    private void playSound() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.airhorn);
+        mediaPlayer.start();
     }
 
     public void fallPopUp()
