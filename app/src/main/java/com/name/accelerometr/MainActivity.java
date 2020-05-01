@@ -11,6 +11,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -53,6 +57,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         y = findViewById(R.id.textView3);
         z = findViewById(R.id.textView4);
 
+
         longitude = findViewById(R.id.textView);
         latitude = findViewById(R.id.textView5);
 
@@ -65,8 +70,20 @@ public class MainActivity extends Activity implements SensorEventListener {
             @Override
             public void onLocationChanged(Location location) {
                 Log.i("Location", location.toString());
-                longitude.setText("Szerokość geograficzna : " + location.getLongitude());
-                latitude.setText("Długość geograficzna : " + location.getLongitude());
+
+                DecimalFormat decimalFormat = new DecimalFormat();
+                decimalFormat.setMaximumFractionDigits(3);
+
+                double longitudeValue = Double.parseDouble(decimalFormat.format(location.getLongitude()));
+                double latitudeValue = Double.parseDouble(decimalFormat.format(location.getLatitude()));
+
+
+                longitude.setText("Szerokość geograficzna : " + decimalFormat.format(longitudeValue));
+                latitude.setText("Długość geograficzna : " + decimalFormat.format(latitudeValue));
+
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+
             }
 
             @Override
@@ -81,6 +98,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             public void onProviderDisabled(String s) {
             }
         };
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);

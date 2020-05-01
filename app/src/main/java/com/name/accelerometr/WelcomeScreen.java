@@ -13,9 +13,9 @@ public class WelcomeScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-
         button = findViewById(R.id.nextActivity);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,11 +23,24 @@ public class WelcomeScreen extends AppCompatActivity {
                 openMainActivity();
             }
         });
+        checkFirstOpen();
     }
+
 
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
+    }
+
+    private void checkFirstOpen() {
+        Boolean isFirstRun = getSharedPreferences("com.name.accelerometr", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (!isFirstRun) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        getSharedPreferences("com.name.accelerometr", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
     }
 }
