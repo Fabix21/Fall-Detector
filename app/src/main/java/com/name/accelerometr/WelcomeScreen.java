@@ -2,6 +2,8 @@ package com.name.accelerometr;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,6 +28,12 @@ public class WelcomeScreen extends AppCompatActivity {
         checkFirstOpen();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
 
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

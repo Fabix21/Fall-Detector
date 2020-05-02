@@ -2,7 +2,6 @@ package com.name.accelerometr;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,17 +17,20 @@ import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     LocationManager locationManager;
     LocationListener locationListener;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
     }
     String valueX, valueY, valueZ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,13 @@ public class MainActivity extends Activity implements SensorEventListener {
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
     }
 
     @Override
