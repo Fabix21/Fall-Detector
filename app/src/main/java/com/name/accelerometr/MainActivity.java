@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
+
         x = findViewById(R.id.textView2);
         y = findViewById(R.id.textView3);
         z = findViewById(R.id.textView4);
@@ -88,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
             }
-
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
             }
@@ -115,6 +117,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     @Override

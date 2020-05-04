@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical|fill_vertical"
+    android:visibility="visible"
+    tools:visibility="visible">
+    <PreferenceCategory android:title="Wezwanie pomocy">
+
+        <EditTextPreference
+            android:digits="0123456789"
+            android:inputType="phone"
+            android:key="phone_number"
+            android:title="Podaj numer telefonu"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Powiadomienia">
+
+        <SwitchPreferenceCompat
+            app:key="enable_costam"
+            app:title="Pokazuj powiadomienia" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About">
+        <Preference
+            app:key="version"
+            app:summary="v0.4"
+            app:title="Build version" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
