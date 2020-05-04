@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
-
 public class SettingsFragment extends PreferenceFragmentCompat {
 
 

@@ -8,10 +8,18 @@
     <PreferenceCategory android:title="Wezwanie pomocy">
 
         <EditTextPreference
+            android:ems="4"
             android:digits="0123456789"
             android:inputType="phone"
             android:key="phone_number"
             android:title="Podaj numer telefonu"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="user_name"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Podaj swoje imie oraz nazwisko"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 

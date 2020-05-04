@@ -1,11 +1,11 @@
 package com.name.accelerometr;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +17,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,16 +29,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
+    final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     LocationManager locationManager;
     LocationListener locationListener;
     TextView x, y, z;
     TextView longitude, latitude;
+    String valueX, valueY, valueZ;
+    double longitudeValue;
+    double latitudeValue;
+
+    public boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -48,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
     }
-    String valueX, valueY, valueZ;
 
 
     @Override
@@ -58,11 +70,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-
         x = findViewById(R.id.textView2);
         y = findViewById(R.id.textView3);
         z = findViewById(R.id.textView4);
-
 
         longitude = findViewById(R.id.textView);
         latitude = findViewById(R.id.textView5);
@@ -72,25 +82,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
-            @SuppressLint("SetTextI18n")
+
             @Override
             public void onLocationChanged(Location location) {
                 Log.i("Location", location.toString());
 
                 DecimalFormat decimalFormat = new DecimalFormat();
-                decimalFormat.setMaximumFractionDigits(3);
+                decimalFormat.setMaximumFractionDigits(10);
 
-                double longitudeValue = Double.parseDouble(decimalFormat.format(location.getLongitude()));
-                double latitudeValue = Double.parseDouble(decimalFormat.format(location.getLatitude()));
-
+                longitudeValue = Double.parseDouble(decimalFormat.format(location.getLongitude()));
+                latitudeValue = Double.parseDouble(decimalFormat.format(location.getLatitude()));
 
                 longitude.setText("Szerokość geograficzna : " + decimalFormat.format(longitudeValue));
                 latitude.setText("Długość geograficzna : " + decimalFormat.format(latitudeValue));
 
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-
             }
+
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
             }
@@ -104,11 +112,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         };
 
+        requestPermissions();
 
+    }
+
+    private void requestPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -135,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
         if(event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION){
 
             float xVal = event.values[0];
@@ -155,9 +170,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void checkFall(float yVal) {
         if (yVal > 8) {
+            if (checkPermission(Manifest.permission.SEND_SMS)) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String phoneNumber = sharedPreferences.getString("phone_number", "");
+                String userName = sharedPreferences.getString("user_name", "");
+
+                String textMessage = "Obecna lokalizacja to: " + "https://www.latlong.net/c/?lat=" + latitudeValue + "&long=" + longitudeValue
+                        + " Powiadom odpowiednie sluzby lub idz pod wybrany adres!";
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, "Użytkownik " + userName + " wzywa pomocy!", null, null);
+                smsManager.sendTextMessage(phoneNumber, null, textMessage, null, null);
+                Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+            }
             fallPopUp();
             playSound();
             Log.i("Wykryto upadek", "os Y");
+
         }
     }
 
@@ -166,8 +194,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mediaPlayer.start();
     }
 
-    public void fallPopUp()
-    {
+    public void fallPopUp() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Upadek!")
                 .setMessage("Wykryto upadek, w ciągu 10 sekund zostanią powiadomione odpowienie słuzby! Jeśli to pomyłka to masz lipę")
@@ -183,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
 }
 
 
