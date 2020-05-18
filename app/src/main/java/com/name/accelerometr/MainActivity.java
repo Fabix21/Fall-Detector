@@ -17,6 +17,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
@@ -38,10 +39,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
     final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
+    CountDownTimer userResponseTimer;
+    CountDownTimer fallTimeTimer;
     LocationManager locationManager;
     LocationListener locationListener;
     TextView x, y, z;
     TextView longitude, latitude;
+    TextView timer;
     String valueX, valueY, valueZ;
     double longitudeValue;
     double latitudeValue;
@@ -169,24 +173,45 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void checkFall(float yVal) {
-        if (yVal > 8) {
-            if (checkPermission(Manifest.permission.SEND_SMS)) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                String phoneNumber = sharedPreferences.getString("phone_number", "");
-                String userName = sharedPreferences.getString("user_name", "");
 
-                String textMessage = "Obecna lokalizacja to: " + "https://www.latlong.net/c/?lat=" + latitudeValue + "&long=" + longitudeValue
-                        + " Powiadom odpowiednie sluzby lub idz pod wybrany adres!";
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNumber, null, "Użytkownik " + userName + " wzywa pomocy!", null, null);
-                smsManager.sendTextMessage(phoneNumber, null, textMessage, null, null);
-                Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
-            }
+        if (yVal > 8) {
             fallPopUp();
             playSound();
-            Log.i("Wykryto upadek", "os Y");
+            userResponseTimer = new CountDownTimer(10000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimer((int) (millisUntilFinished / 1000));
+                }
 
+                @Override
+                public void onFinish() {
+                    if (checkPermission(Manifest.permission.SEND_SMS)) {
+                        sendSMS();
+                    }
+                }
+            }.start();
+            Log.i("Wykryto upadek", "os Y");
         }
+    }
+
+    public void updateTimer(int secondsLeft) {
+        timer = findViewById(R.id.textView);
+        String currentTime = String.format("%02d:%02d", secondsLeft / 60, secondsLeft % 60);
+        timer.setText(currentTime);
+        Log.i("Current Value", Integer.toString(secondsLeft));
+
+    }
+
+    private void sendSMS() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String phoneNumber = sharedPreferences.getString("phone_number", "");
+        String userName = sharedPreferences.getString("user_name", "");
+        String textMessage = "Obecna lokalizacja to: " + "https://www.latlong.net/c/?lat=" + latitudeValue + "&long=" + longitudeValue
+                + " Powiadom odpowiednie sluzby lub idz pod wybrany adres!";
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber, null, "Użytkownik " + userName + " wzywa pomocy!", null, null);
+        smsManager.sendTextMessage(phoneNumber, null, textMessage, null, null);
+        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
 
     private void playSound() {
@@ -198,11 +223,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Upadek!")
                 .setMessage("Wykryto upadek, w ciągu 10 sekund zostanią powiadomione odpowienie słuzby! Jeśli to pomyłka to masz lipę")
+                .setMessage("Pozostaly czas to : ")
                 .setNeutralButton("TO POMYLKA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
                         Toast.makeText(getApplicationContext(),"Wygląda na to, że jednak żyjesz, GJ!",Toast.LENGTH_LONG).show();
+                        userResponseTimer.cancel();
+
                     }
                 }).show();
     }
