@@ -15,7 +15,6 @@
             android:title="Podaj numer telefonu"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:defaultValue="Default value"
             android:key="user_name"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -32,8 +31,12 @@
     <PreferenceCategory android:title="About">
         <Preference
             app:key="version"
-            app:summary="v0.4"
+            app:summary="v0.6"
             app:title="Build version" />
+        <EditTextPreference
+            app:key="version"
+            app:summary="Fabian Hoszowski"
+            app:title="Autorzy" />
     </PreferenceCategory>
 
 </PreferenceScreen>

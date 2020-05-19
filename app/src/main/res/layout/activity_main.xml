@@ -27,7 +27,7 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/accelrometr"
+            android:text="@string/accelerometer"
             android:textSize="20sp" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/os_z"
+            android:text="@string/axis_z"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/os_y"
+            android:text="@string/axis_y"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:text="@string/os_x"
+            android:text="@string/axis_x"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="18sp" />
 
@@ -61,26 +61,21 @@
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/po_o_enie"
+            android:text="@string/location"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/szeroko_geograficzna" />
+            android:text="@string/latitude" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/d_ugo_geograficzna" />
+            android:text="@string/longitude" />
 
-        <TextView
-            android:id="@+id/AdressLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

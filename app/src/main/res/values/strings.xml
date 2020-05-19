@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Fall Detector v0.4</string>
-    <string name="accelrometr">Accelrometr</string>
-    <string name="os_z">Os Z</string>
-    <string name="os_y">Os Y</string>
-    <string name="os_x">Os X</string>
-    <string name="po_o_enie">Położenie</string>
-    <string name="szeroko_geograficzna">Szerokość geograficzna</string>
-    <string name="d_ugo_geograficzna">Długość geograficzna</string>
+    <string name="app_name">Fall Detector</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="axis_z">Os Z</string>
+    <string name="axis_y">Os Y</string>
+    <string name="axis_x">Os X</string>
+    <string name="location">Położenie</string>
+    <string name="latitude">Szerokość geograficzna</string>
+    <string name="longitude">Długość geograficzna</string>
     <string name="title_activity_welcome_screen">welcomeScreen</string>
-    <string name="welcome_message">Witaj w aplikacji FallDetector, aplikacja ma na celu wykrycie upadku oraz udostepnienie Twojej lokalizacji w chwili wykrycia upadku wysyłajać SMS na wybrany przez Ciebie numer.</string>
+    <string name="welcome_message">Witaj w aplikacji FallDetector, aplikacja ma na celu wykrycie upadku oraz udostepnienie Twojej lokalizacji w chwili wykrycia upadku wysyłajać SMS na wybrany przez Ciebie numer.
+    Aby dodać numer wraz i Twoim imieniem, wejdz w menu ustawień!</string>
     <string name="title_activity_settings">Settings</string>
-
-
 
 
 </resources>
