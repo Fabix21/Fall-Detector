@@ -53,8 +53,10 @@ public class WarningActivity extends AppCompatActivity {
                     fallPopUp();
                 }
             }
+
         }.start();
         Log.i("Wykryto upadek", "os Y");
+
     }
 
     private void openMainActivity() {
@@ -75,12 +77,14 @@ public class WarningActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String phoneNumber = sharedPreferences.getString("phone_number", "");
         String userName = sharedPreferences.getString("user_name", "");
-        String textMessage = "Obecna lokalizacja to: " + "https://www.latlong.net/c/?lat=" + latitudeValue + "&long=" + longitudeValue
+        String textMessage = "Obecna lokalizacja to: " + "https://www.google.com/maps/search/?api=1&query=" + latitudeValue + "," + longitudeValue
                 + " Powiadom odpowiednie sluzby lub idz pod wybrany adres!";
+
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, "Użytkownik " + userName + " wzywa pomocy!", null, null);
         smsManager.sendTextMessage(phoneNumber, null, textMessage, null, null);
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Wiadomość została wysłana!", Toast.LENGTH_SHORT).show();
+
     }
 
     private void playSound() {

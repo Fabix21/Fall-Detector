@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     LocationManager locationManager;
     LocationListener locationListener;
+    SensorManager sensorManager;
     TextView x, y, z;
     TextView longitude, latitude;
-
     String valueX, valueY, valueZ;
     double longitudeValue;
     double latitudeValue;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
 
         x = findViewById(R.id.textView2);
         y = findViewById(R.id.textView3);
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         longitude = findViewById(R.id.textView);
         latitude = findViewById(R.id.textView5);
 
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_FASTEST);
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
+        } else {
+
         }
     }
 
@@ -154,7 +156,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             x.setText(valueX);
             y.setText(valueY);
             z.setText(valueZ);
+
             checkFall(yVal);
+
+
         }
     }
 
@@ -163,24 +168,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    private void openWarningActivity() {
+    public void openWarningActivity() {
         Intent intent = new Intent(MainActivity.this, WarningActivity.class);
-        intent.putExtra("longitude", longitudeValue);
-        intent.putExtra("latitude", latitudeValue);
+        intent.putExtra("longitude", String.valueOf(longitudeValue));
+        intent.putExtra("latitude", String.valueOf(latitudeValue));
         startActivity(intent);
-
     }
 
     private void checkFall(float yVal) {
-
-        if (yVal > 8) {
-            // openWarningActivity();
-            Intent intent = new Intent(this, WarningActivity.class);
-            intent.putExtra("longitude", String.valueOf(longitudeValue));
-            intent.putExtra("latitude", String.valueOf(latitudeValue));
-            startActivity(intent);
+        if (yVal > 2) {
+            openWarningActivity();
+            sensorManager.unregisterListener(this);
         }
-
     }
 }
 
