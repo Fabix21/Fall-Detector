@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeScreen">
+    tools:context=".WelcomeScreenActivity">
 
     <TextView
         android:id="@+id/textView6"
@@ -31,8 +31,7 @@
         android:layout_marginStart="295dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="40dp"
-        android:background="@color/cardview_shadow_start_color"
-        android:text="Dalej"
+        android:text="@string/buttonNext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"

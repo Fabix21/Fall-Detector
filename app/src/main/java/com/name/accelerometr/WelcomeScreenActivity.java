@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class WelcomeScreen extends AppCompatActivity {
     }
 
     private void checkFirstOpen() {
-        Boolean isFirstRun = getSharedPreferences("com.name.accelerometr", MODE_PRIVATE)
+        boolean isFirstRun = getSharedPreferences("com.name.accelerometr", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (!isFirstRun) {
             Intent intent = new Intent(this, MainActivity.class);

@@ -13,6 +13,7 @@
     <string name="welcome_message">Witaj w aplikacji FallDetector, aplikacja ma na celu wykrycie upadku oraz udostepnienie Twojej lokalizacji w chwili wykrycia upadku wysyłajać SMS na wybrany przez Ciebie numer.
     Aby dodać numer wraz i Twoim imieniem, wejdz w menu ustawień!</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="buttonNext">Dalej</string>
 
 
 </resources>
