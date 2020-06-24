@@ -78,7 +78,6 @@ public class WarningActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("user_name", "");
         String textMessage = "Obecna lokalizacja to: " + "https://www.google.com/maps/search/?api=1&query=" + latitudeValue + "," + longitudeValue
                 + " Powiadom odpowiednie sluzby lub idz pod wybrany adres!";
-
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, "Użytkownik " + userName + " wzywa pomocy!", null, null);
         smsManager.sendTextMessage(phoneNumber, null, textMessage, null, null);
