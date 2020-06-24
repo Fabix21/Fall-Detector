@@ -21,7 +21,6 @@ import androidx.preference.PreferenceManager;
 public class WarningActivity extends AppCompatActivity {
     final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
     CountDownTimer userResponseTimer;
-    CountDownTimer fallTimeTimer;
     TextView timer;
     String longitudeValue;
     String latitudeValue;
